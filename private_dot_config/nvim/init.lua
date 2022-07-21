@@ -138,6 +138,7 @@ require('onedark').setup {
   ending_tildes = true,
   style = 'dark',
   code_style = {
+    namespaces = 'none',
     comments = 'italic',
     keywords = 'none',
     functions = 'italic',
@@ -273,6 +274,7 @@ vim.keymap.set('n', '<leader>/', function()
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
+    height = 0.65
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
@@ -283,11 +285,43 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 require("telescope").setup({
+  defaults = {
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+    },
+    layout_config = {
+      horizontal = {
+        prompt_position = "top",
+        preview_width = 0.55,
+        results_width = 0.8,
+      },
+      vertical = {
+        prompt_position = "bottom",
+        mirror = false,
+      },
+      width = 0.85,
+      height = 0.90,
+      -- preview_cutoff = 120,
+    },
+    file_ignore_patterns = { "node_modules" },
+  },
+  pickers = {
+    find_files = {
+      layout_strategy = "vertical",
+    }
+  },
   extensions = {
     file_browser = {
-      previewer = false,
-      theme = "dropdown",
-      path = "%:p:h"
+      -- previewer = false,
+      -- theme = "dropdown",
+      layout_strategy = "vertical",
+      path = "%:p:h",
     }
   }
 })
@@ -304,7 +338,7 @@ require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'lua', 'typescript', 'python', 'ruby', "tsx", "javascript", "org" },
 
-  highlight = { 
+  highlight = {
     enable = true,
     additional_vim_regex_highlighting = { 'org' }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
   },
