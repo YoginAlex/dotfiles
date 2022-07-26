@@ -496,7 +496,6 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua', 'stylelint_lsp', 'html', 'cssls',
   'eslint', 'tsserver', 'jsonls' }
 
--- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua', 'html', 'cssls', 'eslint', 'tsserver' }
 -- Ensure the servers above are installed
 require('nvim-lsp-installer').setup {
   ensure_installed = servers,
