@@ -125,14 +125,12 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
   autoload -Uz compinit
   compinit
 fi
-
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -151,9 +149,10 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ls="exa -lT --git"
+alias ls="exa -la --git"
 alias l="exa -l --git"
-alias la="exa -la --git"
+alias la="exa -lT --git"
+
 alias vim="nvim"
 alias v="vim"
 
@@ -170,3 +169,4 @@ export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/l
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

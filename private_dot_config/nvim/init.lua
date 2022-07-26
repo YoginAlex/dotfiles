@@ -23,6 +23,7 @@ require('packer').startup(function(use)
   use 'navarasu/onedark.nvim'
   use { "ellisonleao/gruvbox.nvim" }
   use 'tanvirtin/monokai.nvim'
+  use 'rmehri01/onenord.nvim'
 
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
@@ -47,10 +48,13 @@ require('packer').startup(function(use)
   -- use 'Pocco81/TrueZen.nvim'
   use { "AckslD/nvim-neoclip.lua", requires = { 'nvim-telescope/telescope.nvim' } }
   use { 'mg979/vim-visual-multi', branch = "master" }
-  use { 'nvim-orgmode/orgmode', config = function()
-    require('orgmode').setup {}
-  end
-  }
+  use 'nvim-orgmode/orgmode'
+
+  -- }
+  use({
+    "glepnir/lspsaga.nvim",
+    branch = "main",
+  })
   use {
     "folke/zen-mode.nvim",
     config = function()
@@ -129,10 +133,10 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
-vim.o.termguicolors = true
--- vim.g.tokyonight_style = 'night'
+-- vim.o.termguicolors = true
+-- vim.g.tokyonight_style = 'storm'
 -- vim.g.tokyonight_italic_functions = true
--- vim.cmd [[colorscheme gruvbox]]
+vim.cmd [[colorscheme tokyonight]]
 -- require('monokai').setup { palette = require('monokai').classic }
 require('onedark').setup {
   ending_tildes = true,
@@ -145,6 +149,9 @@ require('onedark').setup {
     strings = 'none',
     variables = 'none'
   },
+  highlights = {
+    TSConstructor = { fmt = "none" },
+  }
 }
 require('onedark').load()
 --
@@ -274,7 +281,8 @@ vim.keymap.set('n', '<leader>/', function()
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
-    height = 0.65
+    height = 0.65,
+    case_mode = "ignore_case"
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
@@ -297,15 +305,15 @@ require("telescope").setup({
     },
     layout_config = {
       horizontal = {
-        prompt_position = "top",
-        preview_width = 0.55,
+        prompt_position = "bottom",
+        preview_width = 0.3,
         results_width = 0.8,
       },
       vertical = {
         prompt_position = "bottom",
         mirror = false,
       },
-      width = 0.85,
+      width = 0.95,
       height = 0.90,
       -- preview_cutoff = 120,
     },
@@ -331,16 +339,17 @@ require("telescope").load_extension "file_browser"
 vim.keymap.set("n", "<leader>su", require('telescope').extensions.file_browser.file_browser,
   { desc = '[S]earch c[u]rrent', noremap = true })
 
+require('orgmode').setup_ts_grammar()
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'lua', 'typescript', 'python', 'ruby', "tsx", "javascript", "org" },
+  ensure_installed = { 'lua', 'typescript', 'python', 'ruby', 'tsx', 'javascript' },
 
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = { 'org' }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
+    additional_vim_regex_highlighting = { 'org' }
   },
   indent = { enable = true },
   incremental_selection = {
@@ -397,9 +406,34 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+local saga = require("lspsaga")
+
+saga.init_lsp_saga({
+  -- your configuration
+})
+local action = require("lspsaga.codeaction")
+
+vim.keymap.set("n", "gh", require("lspsaga.finder").lsp_finder, { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>ca", action.code_action, { silent = true, noremap = true })
+vim.keymap.set("v", "<leader>ca", function()
+  vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
+  action.range_code_action()
+end, { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>gr", require("lspsaga.rename").lsp_rename, { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>gd", require("lspsaga.definition").preview_definition, { silent = true, noremap = true })
+vim.keymap.set("n", "[d", require("lspsaga.diagnostic").goto_prev, { silent = true, noremap = true })
+vim.keymap.set("n", "]d", require("lspsaga.diagnostic").goto_next, { silent = true, noremap = true })
+-- scroll down hover doc or scroll in definition preview
+-- vim.keymap.set("n", "<C-f>", function()
+--   action.smart_scroll_with_saga(1)
+-- end, { silent = true })
+-- -- scroll up hover doc
+-- vim.keymap.set("n", "<C-b>", function()
+--   action.smart_scroll_with_saga(-1)
+-- end, { silent = true })
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+-- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+-- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Diagnostic open float" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Diagnostic list" })
 
@@ -420,8 +454,8 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  -- nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  -- nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
@@ -429,9 +463,17 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
+  -- scroll down hover doc or scroll in definition preview
+  -- nmap("<C-d>", function() require("lspsaga.codeaction").smart_scroll_with_saga(1) end, '')
+  -- scroll up hover doc
+  -- nmap("<C-u>", function() require("lspsaga.codeaction").smart_scroll_with_saga(0) end, '')
+
   -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap("K", require("lspsaga.hover").render_hover_doc, 'Hover Documentation')
+
+  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<C-k>', require("lspsaga.signaturehelp").signature_help, 'Signature Documentation')
+  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -451,9 +493,10 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'stylelint_lsp', 'html', 'cssls' }
--- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua', 'stylelint_lsp', 'html', 'cssls',
+  'eslint', 'tsserver', 'jsonls' }
 
+-- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua', 'html', 'cssls', 'eslint', 'tsserver' }
 -- Ensure the servers above are installed
 require('nvim-lsp-installer').setup {
   ensure_installed = servers,
@@ -542,26 +585,45 @@ require("nvim-autopairs").setup()
 local null_ls = require("null-ls")
 
 null_ls.setup({
-  debug = true,
+  -- debug = true,
+  -- save_after_format = true,
   sources = {
     null_ls.builtins.formatting.eslint_d,
     null_ls.builtins.formatting.prettier,
-    -- null_ls.builtins.formatting.prettier.with({ disabled_filetypes = { "scss" } }),
     null_ls.builtins.diagnostics.stylelint,
     null_ls.builtins.formatting.stylelint,
     null_ls.builtins.diagnostics.eslint_d
   }
 })
 
--- Load custom tree-sitter grammar for org filetype
-require('orgmode').setup_ts_grammar()
+vim.g.diagnostics_active = true
+function _G.toggle_diagnostics()
+  if vim.g.diagnostics_active then
+    vim.g.diagnostics_active = false
+    vim.diagnostic.config({
+      virtual_text = false,
+      -- underline = false
+    })
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+  else
+    vim.g.diagnostics_active = true
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.diagnostic.config({
+        virtual_text = true,
+        -- underline = true
+      })
+    )
+  end
+end
 
+vim.keymap.set({ 'n', 'v' }, '<leader>tt', ':lua toggle_diagnostics()<CR>', { silent = true })
+
+require('nvim-web-devicons').setup()
+require('neoclip').setup()
 require('orgmode').setup({
   org_agenda_files = { '~/Dropbox/org/*', '~/my-orgs/**/*' },
   org_default_notes_file = '~/Dropbox/org/refile.org',
 })
 
-require('nvim-web-devicons').setup()
-require('neoclip').setup()
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
