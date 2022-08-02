@@ -43,8 +43,6 @@ require('packer').startup(function(use)
   -- use 'Pocco81/TrueZen.nvim'
   use { "AckslD/nvim-neoclip.lua", requires = { 'nvim-telescope/telescope.nvim' } }
   use { 'mg979/vim-visual-multi', branch = "master" }
-  use 'nvim-orgmode/orgmode'
-  use 'renerocksai/telekasten.nvim'
   -- }
   use({
     "glepnir/lspsaga.nvim",
