@@ -36,6 +36,8 @@ require('packer').startup(function(use)
   use "norcalli/nvim-colorizer.lua"
 
   use "windwp/nvim-autopairs"
+  use "windwp/nvim-ts-autotag"
+
   use "max397574/better-escape.nvim"
   use "folke/which-key.nvim"
   use "kyazdani42/nvim-web-devicons"
@@ -71,6 +73,10 @@ require('packer').startup(function(use)
   if is_bootstrap then
     require('packer').sync()
   end
+
+  use "lukas-reineke/lsp-format.nvim"
+  -- use 'glepnir/dashboard-nvim'
+  use 'mhinz/vim-startify'
 end)
 -- stylua: ignore end
 
@@ -94,4 +100,3 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   group = packer_group,
   pattern = vim.fn.expand '$MYVIMRC',
 })
-

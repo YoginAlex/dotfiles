@@ -149,9 +149,9 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ls="exa -la --git"
-alias l="exa -l --git"
-alias la="exa -lT --git"
+alias ls="exa --long --all --all --classify --git --icons"
+alias l=ls
+alias la="exa --long --all --all --classify --tree --git --icons"
 
 alias vim="nvim"
 alias v="vim"

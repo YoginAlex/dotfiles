@@ -12,24 +12,14 @@ require('plugins.gitsigns')
 require('plugins.telescope')
 require('plugins.treesitter')
 require('plugins.null-ls')
+require('plugins.lspsaga')
 
-local saga = require("lspsaga")
 
-saga.init_lsp_saga({
-  -- your configuration
-})
-local action = require("lspsaga.codeaction")
-
-vim.keymap.set("n", "gh", require("lspsaga.finder").lsp_finder, { silent = true, noremap = true })
-vim.keymap.set("n", "<leader>ca", action.code_action, { silent = true, noremap = true })
-vim.keymap.set("v", "<leader>ca", function()
-  vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
-  action.range_code_action()
-end, { silent = true, noremap = true })
-vim.keymap.set("n", "<leader>gr", require("lspsaga.rename").lsp_rename, { silent = true, noremap = true })
-vim.keymap.set("n", "<leader>gd", require("lspsaga.definition").preview_definition, { silent = true, noremap = true })
-vim.keymap.set("n", "[d", require("lspsaga.diagnostic").goto_prev, { silent = true, noremap = true })
-vim.keymap.set("n", "]d", require("lspsaga.diagnostic").goto_next, { silent = true, noremap = true })
+-- vim.keymap.set("n", "gh", require("lspsaga.finder").lsp_finder, { silent = true, noremap = true })
+-- vim.keymap.set("n", "<leader>gr", require("lspsaga.rename").lsp_rename, { silent = true, noremap = true })
+-- vim.keymap.set("n", "<leader>gd", require("lspsaga.definition").preview_definition, { silent = true, noremap = true })
+-- vim.keymap.set("n", "[d", require("lspsaga.diagnostic").goto_prev, { silent = true, noremap = true })
+-- vim.keymap.set("n", "]d", require("lspsaga.diagnostic").goto_next, { silent = true, noremap = true })
 -- scroll down hover doc or scroll in definition preview
 -- vim.keymap.set("n", "<C-f>", function()
 --   action.smart_scroll_with_saga(1)
@@ -46,7 +36,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Diagnostic
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -60,6 +50,8 @@ local on_attach = function(_, bufnr)
 
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
+
+  require('lsp-format').on_attach(client)
 
   -- nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   -- nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
@@ -75,11 +67,16 @@ local on_attach = function(_, bufnr)
   -- scroll up hover doc
   -- nmap("<C-u>", function() require("lspsaga.codeaction").smart_scroll_with_saga(0) end, '')
 
+  -- vim.keymap.set("n", "<leader>ca", action.code_action, { silent = true, noremap = true, buffer = bufnr })
+  -- vim.keymap.set("v", "<leader>ca", function()
+  --   vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
+  --   action.range_code_action()
+  -- end, { silent = true, noremap = true, buffer = bufnr })
   -- See `:help K` for why this keymap
-  nmap("K", require("lspsaga.hover").render_hover_doc, 'Hover Documentation')
+  -- nmap("K", require("lspsaga.hover").render_hover_doc, 'Hover Documentation')
 
   -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', require("lspsaga.signaturehelp").signature_help, 'Signature Documentation')
+  -- nmap('<C-k>', require("lspsaga.signaturehelp").signature_help, 'Signature Documentation')
   -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
@@ -94,14 +91,15 @@ local on_attach = function(_, bufnr)
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function() vim.lsp.buf.format({ timeout_ms = 2000 }) end,
     { desc = 'Format current buffer with LSP' })
+
 end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua', 'stylelint_lsp', 'html', 'cssls',
-  'eslint', 'tsserver', 'jsonls' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua', 'stylelint_lsp', 'html', 'cssls', 'eslint',
+   'tsserver', 'jsonls' }
 
 -- Ensure the servers above are installed
 require('nvim-lsp-installer').setup {
@@ -187,10 +185,30 @@ cmp.setup {
   },
 }
 
+vim.g.diagnostics_active = true
+function _G.toggle_diagnostics()
+  if vim.g.diagnostics_active then
+    vim.g.diagnostics_active = false
+    vim.diagnostic.config({
+      virtual_text = false,
+      -- underline = false
+    })
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+  else
+    vim.g.diagnostics_active = true
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.diagnostic.config({
+        virtual_text = true,
+        -- underline = true
+      })
+    )
+  end
+end
+
+vim.keymap.set({ 'n', 'v' }, '<leader>tt', ':lua toggle_diagnostics()<CR>', { silent = true })
+
 require('nvim-autopairs').setup()
-
-
-
+require('nvim-ts-autotag').setup()
 require('nvim-web-devicons').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
