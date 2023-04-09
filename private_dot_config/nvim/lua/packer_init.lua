@@ -46,29 +46,40 @@ require('packer').startup(function(use)
   use { "AckslD/nvim-neoclip.lua", requires = { 'nvim-telescope/telescope.nvim' } }
   use { 'mg979/vim-visual-multi', branch = "master" }
   -- }
+
   use({
-    "glepnir/lspsaga.nvim",
-    branch = "main",
+      "glepnir/lspsaga.nvim",
+      branch = "main",
+      config = function()
+        require("lspsaga").setup {}
+      end,
+      requires = {
+          { "nvim-tree/nvim-web-devicons" },
+          --Please make sure you install markdown and markdown_inline parser
+          { "nvim-treesitter/nvim-treesitter" }
+      }
   })
+
+  use({
+      "folke/zen-mode.nvim",
+      config = function()
+        require("zen-mode").setup {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+      end
+  })
+
   use {
-    "folke/zen-mode.nvim",
-    config = function()
-      require("zen-mode").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
-  use {
-    "folke/twilight.nvim",
-    config = function()
-      require("twilight").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
+      "folke/twilight.nvim",
+      config = function()
+        require("twilight").setup {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+      end
   }
   if is_bootstrap then
     require('packer').sync()
@@ -96,7 +107,7 @@ end
 -- Automatically source and re-compile packer whenever you save this init.lua
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | PackerCompile',
-  group = packer_group,
-  pattern = vim.fn.expand '$MYVIMRC',
+    command = 'source <afile> | PackerCompile',
+    group = packer_group,
+    pattern = vim.fn.expand '$MYVIMRC',
 })

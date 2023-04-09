@@ -95,11 +95,12 @@ local on_attach = function(client, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua', 'stylelint_lsp', 'html', 'cssls', 'eslint',
-   'tsserver', 'jsonls' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'lua_ls', 'stylelint_lsp', 'html', 'cssls', 'eslint',
+  'tsserver', 'jsonls', 'solargraph', 'typeprof', 'cssmodules_ls'}
 
 -- Ensure the servers above are installed
 require('nvim-lsp-installer').setup {
@@ -120,7 +121,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-require('lspconfig').sumneko_lua.setup {
+require('lspconfig').lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -140,7 +141,6 @@ require('lspconfig').sumneko_lua.setup {
     },
   },
 }
-
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'

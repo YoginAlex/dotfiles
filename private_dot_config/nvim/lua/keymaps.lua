@@ -27,3 +27,6 @@ vim.keymap.set({ 'n' }, '<C-k>', '<C-w>k', { silent = true })
 vim.keymap.set({ 'n' }, '<C-l>', '<C-w>l', { silent = true })
 
 vim.opt.pastetoggle = '<F2>'
+vim.opt.keymap = "russian-jcukenwin"
+vim.opt.iminsert = 0
+vim.opt.imsearch = 0

@@ -1,8 +1,6 @@
 local keymap = vim.keymap.set
 local saga = require('lspsaga')
 
-saga.init_lsp_saga()
-
 -- Lsp finder find the symbol definition implement reference
 -- when you use action in finder like open vsplit then you can
 -- use <C-t> to jump back
@@ -16,7 +14,7 @@ keymap("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", { silent = 
 keymap("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
 
 -- Definition preview
-keymap("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
+keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 
 -- Show line diagnostics
 keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
@@ -45,12 +43,12 @@ keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 -- Signature help
 keymap("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true })
 
-local action = require("lspsaga.action")
--- scroll in hover doc or  definition preview window
-vim.keymap.set("n", "<C-f>", function()
-  action.smart_scroll_with_saga(1)
-end, { silent = true })
--- scroll in hover doc or  definition preview window
-vim.keymap.set("n", "<C-b>", function()
-  action.smart_scroll_with_saga(-1)
-end, { silent = true })
+-- local action = require("lspsaga.action")
+-- -- scroll in hover doc or  definition preview window
+-- vim.keymap.set("n", "<C-f>", function()
+--   action.smart_scroll_with_saga(1)
+-- end, { silent = true })
+-- -- scroll in hover doc or  definition preview window
+-- vim.keymap.set("n", "<C-b>", function()
+--   action.smart_scroll_with_saga(-1)
+-- end, { silent = true })
