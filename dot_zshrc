@@ -154,7 +154,9 @@ alias v="vim"
 alias gh='history | grep'
 
 alias cz="chezmoi"
+alias czv="chezmoi --verbose"
 alias cze="cz edit --watch"
+alias czev="cz edit --verbose --watch"
 
 eval "$(zoxide init zsh)"
 
