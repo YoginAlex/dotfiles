@@ -1,6 +1,6 @@
 return {
-  { "nvim-telescope/telescope-fzf-native.nvim",  build = "make", lazy = false },
-  { "nvim-telescope/telescope-file-browser.nvim" },
+  { "nvim-telescope/telescope-fzf-native.nvim",   build = "make", lazy = false },
+  { "nvim-telescope/telescope-file-browser.nvim", lazy = false },
   {
     "nvim-telescope/telescope.nvim",
     version = false,
