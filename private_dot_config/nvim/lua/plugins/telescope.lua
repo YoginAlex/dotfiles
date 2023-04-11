@@ -86,10 +86,12 @@ return {
         }
       }
     end,
-    config = function()
+    config = function(_, opts)
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("neoclip")
       require("telescope").load_extension("file_browser")
+
+      require("telescope").setup(opts)
     end,
   }
 }
