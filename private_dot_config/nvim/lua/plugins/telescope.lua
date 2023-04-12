@@ -88,16 +88,36 @@ return {
         require("telescope.builtin").oldfiles,
         desc = "[?] Find recently opened files"
       },
-      { "<leader><space>", require("telescope.builtin").buffers,                      desc = "[ ] Find existing buffers" },
-      { "<leader>sf",      require("telescope.builtin").find_files,                   desc = "[S]earch [F]iles" },
-      { "<leader>sh",      require("telescope.builtin").help_tags,                    desc = "[S]earch [H]elp" },
-      { "<leader>sw",      require("telescope.builtin").grep_string,                  desc = "[S]earch current [W]ord" },
-      { "<leader>sg",      require("telescope.builtin").live_grep,                    desc = "[S]earch by [G]rep" },
-      { "<leader>sd",      require("telescope.builtin").diagnostics,                  desc = "[S]earch [D]iagnostics" },
-      { "<leader>su",      require("telescope").extensions.file_browser.file_browser, desc = "[S]earch c[u]rrent" },
+      {
+        "<leader><space>",
+        require("telescope.builtin").buffers,
+        desc = "[ ] Find existing buffers"
+      },
+      { "<leader>sf", require("telescope.builtin").find_files, desc = "[S]earch [F]iles" },
+      { "<leader>sh", require("telescope.builtin").help_tags,  desc = "[S]earch [H]elp" },
+      {
+        "<leader>sw",
+        require("telescope.builtin").grep_string,
+        desc = "[S]earch current [W]ord"
+      },
+      {
+        "<leader>sg",
+        require("telescope.builtin").live_grep,
+        desc = "[S]earch by [G]rep"
+      },
+      {
+        "<leader>sd",
+        require("telescope.builtin").diagnostics,
+        desc = "[S]earch [D]iagnostics"
+      },
+      {
+        "<leader>su",
+        "<cmd>:Telescope file_browser path=%:p:h select_buffer=true<CR>",
+        desc = "[S]earch c[u]rrent"
+      },
       {
         "<leader>/",
-        require('telescope').extensions.neoclip.default,
+        require("telescope").extensions.neoclip.default,
         desc = "[/] Search clipboard history"
       },
     },
