@@ -1,7 +1,7 @@
 return {
   "hrsh7th/nvim-cmp",
   dependencies = { "hrsh7th/cmp-nvim-lsp" },
-  init = function ()
+  init = function()
     local luasnip = require("luasnip")
     local cmp = require("cmp")
     cmp.setup {
@@ -34,10 +34,10 @@ return {
         end, { "i", "s" }),
       },
       sources = {
+        { name = "copilot", group_index = 2 },
         { name = "nvim_lsp" },
         { name = "luasnip" },
       },
     }
-
   end,
 }
