@@ -87,7 +87,7 @@ return {
       },
       formatting = {
         format = function(_, item)
-          local icons = M.icons.kinds
+          local icons = M.icons
           if icons[item.kind] then
             item.kind = icons[item.kind] .. item.kind
           end
