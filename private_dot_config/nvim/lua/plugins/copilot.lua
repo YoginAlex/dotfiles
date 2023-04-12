@@ -19,9 +19,12 @@ return {
     opts = {
       suggestion = { enabled = false },
       panel = { enabled = false },
+      filetypes = {
+        gitcommit = true,
+      }
     },
-    config = function()
-      require("copilot").setup()
+    config = function(_, opts)
+      require("copilot").setup(opts)
     end,
   },
   {
