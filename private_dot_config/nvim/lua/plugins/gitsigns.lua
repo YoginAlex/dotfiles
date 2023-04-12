@@ -13,7 +13,7 @@ return {
     },
     current_line_blame = true,
   },
-  config = function(_, opts)
+  init = function(_, opts)
     require("gitsigns").setup(opts)
   end,
 }
