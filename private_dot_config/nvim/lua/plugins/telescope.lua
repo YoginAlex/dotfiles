@@ -9,8 +9,7 @@ return {
       {
         "<leader>?",
         require("telescope.builtin").oldfiles,
-        desc =
-        "[?] Find recently opened files"
+        desc = "[?] Find recently opened files"
       },
       { "<leader><space>", require("telescope.builtin").buffers,                      desc = "[ ] Find existing buffers" },
       { "<leader>sf",      require("telescope.builtin").find_files,                   desc = "[S]earch [F]iles" },
@@ -19,8 +18,11 @@ return {
       { "<leader>sg",      require("telescope.builtin").live_grep,                    desc = "[S]earch by [G]rep" },
       { "<leader>sd",      require("telescope.builtin").diagnostics,                  desc = "[S]earch [D]iagnostics" },
       { "<leader>su",      require("telescope").extensions.file_browser.file_browser, desc = "[S]earch c[u]rrent" },
-      { "<leader>/",       ":Telescope neoclip",                                      desc =
-      "[/] Search clipboard history" },
+      {
+        "<leader>/",
+        ":Telescope neoclip",
+        desc = "[/] Search clipboard history"
+      },
     },
     opts = function()
       -- Clone the default Telescope configuration
