@@ -17,7 +17,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("core")
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {})
 require("keymaps")
 
 -- The line beneath this is called `modeline`. See `:help modeline`
