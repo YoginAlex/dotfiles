@@ -31,11 +31,14 @@ return {
     opts = {
       suggestion = { enabled = false },
       panel = { enabled = false },
-    }
+    },
+    config = function()
+      require("copilot").setup({})
+    end,
   },
   {
     "zbirenbaum/copilot-cmp",
-    dependencies = "copilot.lua",
+    dependencies = { "copilot.lua" },
     opts = {},
     config = function(_, opts)
       local copilot_cmp = require("copilot_cmp")
