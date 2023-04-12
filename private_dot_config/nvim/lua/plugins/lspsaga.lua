@@ -77,7 +77,7 @@ return {
     { "<leader>o", "<cmd>Lspsaga outline<CR>" },
     { "K", "<cmd>Lspsaga hover_doc<CR>", silent = true },
   },
-  config = function()
-      require("lspsaga").setup({})
+  config = function(_, opts)
+      require("lspsaga").setup(opts)
   end
 }
