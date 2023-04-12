@@ -30,7 +30,6 @@ return {
     { "<c-space>", desc = "Increment selection" },
     { "<bs>",      desc = "Decrement selection", mode = "x" },
   },
-  ---@type TSConfig
   opts = {
     autotag = { enable = true },
     highlight = { enable = true },
@@ -64,7 +63,6 @@ return {
       },
     },
   },
-  ---@param opts TSConfig
   config = function(_, opts)
     require("nvim-treesitter.configs").setup(opts)
   end,
