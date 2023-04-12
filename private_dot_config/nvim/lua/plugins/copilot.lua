@@ -1,5 +1,6 @@
 return {
   "github/copilot.vim",
+  lazy = false,
   cmd = "Copilot",
   build = ":Copilot auth",
   init = function()
@@ -8,4 +9,3 @@ return {
     vim.api.nvim_set_keymap("i", "<C-f>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
   end,
 }
-
