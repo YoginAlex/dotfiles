@@ -5,7 +5,7 @@ return {
   },
   opts = {
     signs = {
-      add = { text = "+" },
+      add = { text = require("icons")},
       change = { text = "~" },
       delete = { text = "_" },
       topdelete = { text = "‾" },
