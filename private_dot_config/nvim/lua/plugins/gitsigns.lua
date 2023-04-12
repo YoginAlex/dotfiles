@@ -3,15 +3,17 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim"
   },
-  init = function()
-    require("gitsigns").setup {
-      signs = {
-        add = { text = "+" },
-        change = { text = "~" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-      },
-    }
+  opt = {
+    signs = {
+      add = { text = "+" },
+      change = { text = "~" },
+      delete = { text = "_" },
+      topdelete = { text = "‾" },
+      changedelete = { text = "~" },
+    },
+    current_line_blame = true,
+  },
+  config = function(_, opts)
+    require("gitsigns").setup(opts)
   end,
 }
