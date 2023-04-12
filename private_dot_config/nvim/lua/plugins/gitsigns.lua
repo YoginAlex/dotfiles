@@ -3,7 +3,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim"
   },
-  opt = {
+  opts = {
     signs = {
       add = { text = "+" },
       change = { text = "~" },
@@ -13,7 +13,7 @@ return {
     },
     current_line_blame = true,
   },
-  init = function(_, opts)
+  config = function(_, opts)
     require("gitsigns").setup(opts)
   end,
 }
