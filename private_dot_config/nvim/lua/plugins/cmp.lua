@@ -61,11 +61,12 @@ return {
         completeopt = "menu,menuone,noselect",
       },
       mapping = cmp.mapping.preset.insert {
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
@@ -84,6 +85,16 @@ return {
             fallback()
           end
         end, { "i", "s" }),
+        ["<esc>"] = cmp.mapping({
+          i = cmp.mapping.abort(),
+          c = function()
+            if cmp.visible() then
+              cmp.close()
+            else
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c>", true, true, true), "n", true)
+            end
+          end
+        }),
       },
       formatting = {
         format = function(_, item)

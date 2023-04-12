@@ -8,7 +8,7 @@ return {
   },
   opts = {
     lightbulb = {
-      enabled = false,
+      enabled = true,
       sign = true,
       sign_priority = 20,
       virtual_text = true,
