@@ -1,18 +1,3 @@
--- return {
---   "github/copilot.vim",
---   lazy = false,
---   cmd = "Copilot",
---   build = ":Copilot auth",
---   init = function()
---     vim.g.copilot_no_tab_map = true
---     vim.g.copilot_assume_mapped = true
---     vim.api.nvim_set_keymap("i", "<C-f>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
---   end,
--- }
-
-
-
-
 local M = {}
 
 function M.on_attach(on_attach)
@@ -30,12 +15,13 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     build = ":Copilot auth",
+    lazy = false,
     opts = {
       suggestion = { enabled = false },
       panel = { enabled = false },
     },
     config = function()
-      require("copilot").setup({})
+      require("copilot").setup()
     end,
   },
   {
