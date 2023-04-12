@@ -20,7 +20,7 @@ return {
       { "<leader>su",      require("telescope").extensions.file_browser.file_browser, desc = "[S]earch c[u]rrent" },
       {
         "<leader>/",
-        "<cmd>Telescope neoclip<CR>",
+        require('telescope').extensions.neoclip.default,
         desc = "[/] Search clipboard history"
       },
     },
