@@ -2,7 +2,7 @@ return {
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = false },
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     lazy = false,
   },
   {
