@@ -8,10 +8,13 @@ return {
   },
   opts = {
     lightbulb = {
-      enabled = true,
-      sign = true,
+      enabled = false,
+      sign = false,
       sign_priority = 20,
       virtual_text = true,
+    },
+    code_action = {
+      show_server_name = true,
     },
     diagnostic = {
       on_insert = true,

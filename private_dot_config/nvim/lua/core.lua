@@ -37,25 +37,6 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
--- Set colorscheme
--- require('onedark').setup {
---   ending_tildes = true,
---   style = 'dark',
---   code_style = {
---     namespaces = 'none',
---     comments = 'italic',
---     keywords = 'none',
---     functions = 'italic',
---     strings = 'none',
---     variables = 'none'
---   },
---   highlights = {
---     TSConstructor = { fmt = "none" },
---   }
--- }
--- 
---
---
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
