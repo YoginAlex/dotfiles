@@ -4,6 +4,6 @@ return {
   lazy = true,
   event = "BufReadPost",
   config = function()
-    require("copilot-status").setup({ debug = true })
+    require("copilot_status").setup({ debug = true })
   end,
 }
