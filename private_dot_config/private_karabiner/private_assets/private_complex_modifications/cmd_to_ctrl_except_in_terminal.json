@@ -1,0 +1,97 @@
+{
+    "title": "Terminal modifications",
+    "rules": [
+        {
+            "description": "CapsLock to Ctrl only in Terminal",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "caps_lock"
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_control",
+                            "lazy": true
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "escape"
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^dev\\.warp\\.Warp-Stable$",
+                                "^net\\.kovidgoyal\\.kitty$"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "CapsLock to Command not in Terminal",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "caps_lock"
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_command",
+                            "lazy": true
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "escape"
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^dev\\.warp\\.Warp-Stable$",
+                                "^net\\.kovidgoyal\\.kitty$"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "manipulators": [
+                {
+                    "description": "Change caps_lock to command+control+option+shift.",
+                    "from": {
+                        "key_code": "caps_lock",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_command",
+                            "modifiers": [
+                                "left_shift",
+                                "left_control",
+                                "left_option"
+                            ]
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}
