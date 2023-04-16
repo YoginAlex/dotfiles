@@ -1,5 +1,6 @@
 return {
   "AckslD/nvim-neoclip.lua",
+  lazy = false,
   dependencies = {
     {
       "kkharji/sqlite.lua",
