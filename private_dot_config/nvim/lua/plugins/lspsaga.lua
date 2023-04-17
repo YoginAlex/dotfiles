@@ -17,7 +17,7 @@ return {
       show_server_name = true,
     },
     diagnostic = {
-      on_insert = true,
+      on_insert = false,
       on_insert_follow = false,
       insert_winblend = 0,
       show_code_action = false,
