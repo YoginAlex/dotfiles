@@ -11,7 +11,7 @@ return {
   config = function()
     require("neoclip").setup({
       enable_persistent_history = true,
-      continuous_sync = true
+      continuous_sync = false
     })
   end
 }
