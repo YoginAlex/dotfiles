@@ -74,7 +74,7 @@ return {
         ["<C-f>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.confirm({
-              behavior = cmp.ConfirmBehavior.Insert,
+              behavior = cmp.ConfirmBehavior.Replace,
               select = true,
             })
           else
