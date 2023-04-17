@@ -75,7 +75,7 @@ return {
           if cmp.visible() then
             cmp.confirm({
               behavior = cmp.ConfirmBehavior.Insert,
-              select = true
+              select = false
             })
           else
             fallback()
