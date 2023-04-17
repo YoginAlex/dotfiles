@@ -8,10 +8,10 @@ return {
     },
     { "nvim-telescope/telescope.nvim" }
   },
-  config = function()
-    require("neoclip").setup({
-      enable_persistent_history = true,
-      continuous_sync = false
-    })
+  opts = {
+    enable_persistent_history = true,
+  },
+  config = function(_, opts)
+    require("neoclip").setup(opts)
   end
 }
