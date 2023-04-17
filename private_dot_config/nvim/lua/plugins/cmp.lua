@@ -69,13 +69,13 @@ return {
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
-          select = false,
+          select = true,
         },
         ["<C-f>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.confirm({
               behavior = cmp.ConfirmBehavior.Insert,
-              select = false
+              select = true,
             })
           else
             fallback()
