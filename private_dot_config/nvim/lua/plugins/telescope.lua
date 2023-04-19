@@ -23,12 +23,6 @@ return {
 
       return {
         defaults = {
-          mappings = {
-            i = {
-              ["<C-u>"] = false,
-              ["<C-d>"] = false,
-            },
-          },
           vimgrep_arguments = vimgrep_arguments,
           layout_config = {
             horizontal = {
@@ -42,13 +36,11 @@ return {
             },
             width = 0.95,
             height = 0.90,
-            -- preview_cutoff = 120,
           },
           file_ignore_patterns = { "node_modules" },
         },
         pickers = {
           find_files = {
-            -- hidden = true,
             find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
             layout_strategy = "vertical",
           },

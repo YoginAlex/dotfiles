@@ -9,9 +9,6 @@ return {
   opts = {
     lightbulb = {
       enabled = false,
-      sign = false,
-      sign_priority = 20,
-      virtual_text = true,
     },
     code_action = {
       show_server_name = true,
