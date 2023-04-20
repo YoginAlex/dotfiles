@@ -7,8 +7,13 @@ return {
     { "nvim-treesitter/nvim-treesitter" }
   },
   opts = {
+    request_timeout = 10000,
     lightbulb = {
-      enabled = false,
+      enable = false,
+      enable_in_insert = false,
+      sign = true,
+      sign_priority = 40,
+      virtual_text = true,
     },
     code_action = {
       show_server_name = true,
@@ -74,7 +79,7 @@ return {
     },
     { "<leader>q",  "<cmd>Lspsaga show_buf_diagnostics<CR>" },
     { "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>" },
-    { "<leader>o",  "<cmd>Lspsaga outline<CR>" },
+    { "<leader>so", "<cmd>Lspsaga outline<CR>" },
     { "K",          "<cmd>Lspsaga hover_doc<CR>",                 silent = true },
   },
   config = function(_, opts)

@@ -16,19 +16,20 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
-  config = function()
-    require("nvim-tree").setup({
-      on_attach = tree_on_attach,
-      sort_by = "case_sensitive",
-      renderer = {
-        group_empty = true,
-      },
-      filters = {
-        dotfiles = true,
-      },
-    })
-  end,
-  init = function()
-    vim.keymap.set("n", "<leader>o", "<cmd>NvimTreeFindFile<CR>", { silent = true })
+  keys = {
+    { "<leader>o", "<cmd>NvimTreeFindFile<CR>" },
+  },
+  opts = {
+    on_attach = M.tree_on_attach,
+    sort_by = "case_sensitive",
+    renderer = {
+      group_empty = true,
+    },
+    filters = {
+      dotfiles = true,
+    },
+  },
+  config = function(_, opts)
+    require("nvim-tree").setup(opts)
   end,
 }

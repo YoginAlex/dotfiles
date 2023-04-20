@@ -8,6 +8,7 @@ return {
       end,
     }
     return {
+      disabled_filetypes = { "NvimTree" },
       options = {
         icons_enabled = true,
         theme = "auto",
