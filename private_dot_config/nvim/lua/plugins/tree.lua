@@ -17,7 +17,8 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   keys = {
-    { "<leader>o", "<cmd>NvimTreeFindFile<CR>" },
+    { "<leader>o",  "<cmd>NvimTreeFindFile<CR>" },
+    { "<leader>to", "<cmd>NvimTreeToggle<CR>" }
   },
   opts = {
     on_attach = M.tree_on_attach,
