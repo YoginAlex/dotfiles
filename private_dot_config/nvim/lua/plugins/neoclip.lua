@@ -10,6 +10,9 @@ return {
   },
   opts = {
     enable_persistent_history = true,
+    continuous_sync = true,
+    preview = true,
+    content_spec_column = true
   },
   config = function(_, opts)
     require("neoclip").setup(opts)

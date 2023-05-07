@@ -15,6 +15,17 @@ return {
     --  - middle-click: delete buffer
     clickable = true,
     icons = {
+      diagnostics = {
+        [vim.diagnostic.severity.ERROR] = { enabled = true, icon = 'E' },
+        [vim.diagnostic.severity.WARN] = { enabled = true, icon = 'W' },
+        [vim.diagnostic.severity.INFO] = { enabled = false },
+        [vim.diagnostic.severity.HINT] = { enabled = false },
+      },
+      gitsigns = {
+        added = { enabled = true, icon = '+' },
+        changed = { enabled = true, icon = '~' },
+        deleted = { enabled = true, icon = '-' },
+      },
       --   -- Configure the base icons on the bufferline.
       buffer_index = true,
     },
