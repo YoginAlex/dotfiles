@@ -16,7 +16,10 @@ return {
       TSConstructor = { fmt = "none" },
     }
   },
-  init = function ()
-    require("onedark").load()
+  config = function(_, opts)
+    require("onedark").setup(opts)
   end,
+  -- init = function()
+  --   vim.cmd("colorscheme onedark")
+  -- end,
 }

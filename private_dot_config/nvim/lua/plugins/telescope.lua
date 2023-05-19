@@ -38,6 +38,7 @@ return {
             height = 0.90,
           },
           file_ignore_patterns = { "node_modules" },
+          path_display = { "truncate" }
         },
         pickers = {
           find_files = {

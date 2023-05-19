@@ -45,7 +45,7 @@ return {
     -- Lsp finder find the symbol definition implement reference
     -- when you use action in finder like open vsplit then you can
     -- use <C-t> to jump back
-    { "gh",         "<cmd>Lspsaga lsp_finder<CR>" },
+    { "gp",         "<cmd>Lspsaga lsp_finder<CR>" },
     -- Code action
     { "<leader>ca", "<cmd>Lspsaga code_action<CR>" },
     { "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", mode = { "v" } },
@@ -56,9 +56,9 @@ return {
     -- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
     -- It also supports tagstack
     -- Use <C-t> to jump back
-    { "gp",         "<cmd>Lspsaga peek_definition<CR>" },
+    { "gh",         "<cmd>Lspsaga peek_definition<CR>" },
     -- Go to definition
-    { "gd",         "<cmd>Lspsaga goto_definition<CR>" },
+    { "gd",         "<cmd>Lspsaga goto_definition<CR>zz" },
     -- Show line diagnostics
     { "<leader>e",  "<cmd>Lspsaga show_line_diagnostics<CR>" },
     -- Show cursor diagnostic

@@ -11,6 +11,8 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.autoindent = true
 
+vim.opt.scrolloff = 10
+
 vim.o.guicursor = "n-c-v:block-blinkwait150-blinkon50-blinkoff150,i-ci:ver60-blinkwait300-blinkon200-blinkoff150"
 -- Set highlight on search
 vim.o.hlsearch = false

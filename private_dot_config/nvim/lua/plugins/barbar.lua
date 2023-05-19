@@ -27,7 +27,7 @@ return {
         deleted = { enabled = true, icon = '-' },
       },
       --   -- Configure the base icons on the bufferline.
-      buffer_index = true,
+      buffer_index = 'superscript',
     },
     -- -- If set, the letters for each buffer in buffer-pick mode will be
     -- -- assigned based on their name. Otherwise or in case all letters are
