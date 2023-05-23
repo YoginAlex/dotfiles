@@ -58,7 +58,7 @@ return {
     -- Use <C-t> to jump back
     { "gh",         "<cmd>Lspsaga peek_definition<CR>" },
     -- Go to definition
-    { "gd",         "<cmd>Lspsaga goto_definition<CR>zz" },
+    { "gd",         "<cmd>Lspsaga goto_definition<CR>" },
     -- Show line diagnostics
     { "<leader>e",  "<cmd>Lspsaga show_line_diagnostics<CR>" },
     -- Show cursor diagnostic
