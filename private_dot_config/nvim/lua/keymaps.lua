@@ -15,5 +15,7 @@ vim.keymap.set({ 'n' }, '<C-j>', '<C-w>j', { silent = true })
 vim.keymap.set({ 'n' }, '<C-k>', '<C-w>k', { silent = true })
 vim.keymap.set({ 'n' }, '<C-l>', '<C-w>l', { silent = true })
 
+
+vim.keymap.set('n', '<CR>', 'ciw', { silent = true })
 -- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Diagnostic open float" })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Diagnostic list" })

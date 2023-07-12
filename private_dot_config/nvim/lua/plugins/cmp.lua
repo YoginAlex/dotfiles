@@ -96,7 +96,7 @@ return {
           end
         end, { "i", "s" }),
         ["<esc>"] = cmp.mapping({
-          i = cmp.mapping.abort(),
+          -- i = cmp.mapping.abort(),
           c = function()
             if cmp.visible() then
               cmp.close()
