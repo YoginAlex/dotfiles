@@ -139,9 +139,9 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ls="exa --long --all --all --classify --git --icons"
+alias ls="eza --long --all --all --classify --git --icons"
 alias l=ls
-alias la="exa --long --all --classify --tree --git --icons level=2"
+alias la="eza --long --all --classify --tree --git --icons level=2"
 alias lt='du -sh * | sort -h'
 
 alias ..="cd .."
@@ -166,6 +166,11 @@ fixaudio () {
   sudo rm /Library/Preferences/Audio/com.apple.audio.DeviceSettings.plist
   sudo rm /Library/Preferences/Audio/com.apple.audio.SystemSettings.plist
   sudo killall coreaudiod
+}
+
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
 }
 
 export PATH="$PATH:$HOME/bin"
