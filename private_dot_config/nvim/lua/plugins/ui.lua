@@ -8,11 +8,19 @@ return {
 
   {
     "folke/noice.nvim",
-    opts = {
-      presets = {
-        lsp_doc_border = true,
-      },
-      views = {
+    opts = function(_, opts)
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          find = "No information available",
+        },
+        opts = { skip = true },
+      })
+
+      opts.presets.lsp_doc_border = true
+
+      local views = opts.views or {}
+      table.insert(views, {
         hover = {
           win_options = {
             winhighlight = {
@@ -21,8 +29,8 @@ return {
             },
           },
         },
-      },
-    },
+      })
+    end,
   },
 
   {

@@ -23,16 +23,32 @@ return {
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
-        ["<ESC>"] = cmp.mapping.close(),
-        ["<C-f>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<CR>"] = cmp.mapping.confirm({
+        -- ["<ESC>"] = cmp.mapping.close(),
+
+        ["<ESC>"] = cmp.mapping({
+          -- i = cmp.mapping.abort(),
+          c = function()
+            if cmp.visible() then
+              cmp.close()
+            else
+              vim.api.nvim_feedkeys(
+                vim.api.nvim_replace_termcodes("<C-c>", true, true, true),
+                "n",
+                true
+              )
+            end
+          end,
+        }),
+
+        ["<C-f>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ["<C-CR>"] = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<C-CR>"] = function(fallback)
-          cmp.abort()
-          fallback()
-        end,
+        -- ["<C-CR>"] = function(fallback)
+        --   cmp.abort()
+        --   fallback()
+        -- end,
       })
 
       opts.window = {
@@ -53,7 +69,7 @@ return {
       filetypes = {
         gitcommit = true,
         markdown = true,
-        help = true,
+        help = "true",
       },
     },
   },
@@ -63,4 +79,20 @@ return {
     cmd = "IncRename",
     config = true,
   },
+
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
+  },
+
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      current_line_blame = true,
+    },
+  },
+
+  { "echasnovski/mini.pairs", enabled = false },
+  { "echasnovski/mini.surround", enabled = false },
 }

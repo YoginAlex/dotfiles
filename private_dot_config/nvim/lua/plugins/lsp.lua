@@ -6,6 +6,9 @@ return {
         float = { border = "rounded" },
       },
       setup = {
+        stylelint_lsp = function(_, opts)
+          opts.filetypes = { "css", "scss", "less", "sass" }
+        end,
         solargraph = function(_, opts)
           require("lspconfig").solargraph.setup({
             settings = {

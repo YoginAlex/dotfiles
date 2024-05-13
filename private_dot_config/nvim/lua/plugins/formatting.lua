@@ -6,6 +6,7 @@ return {
         lua = { "stylua" },
         fish = {},
         sh = { "shfmt" },
+        css = { "stylelint", { "prettierd", "prettier" } },
       },
     },
   },

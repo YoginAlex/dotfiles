@@ -8,7 +8,12 @@ local keymap = vim.keymap
 keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
 -- copy to system clipboard
-keymap.set({ "n", "v" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "Copy to clipboard" })
+keymap.set(
+  { "n", "v" },
+  "<leader>y",
+  '"+y',
+  { noremap = true, silent = true, desc = "Copy to clipboard" }
+)
 -- jj to exit insert mode
 keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true, desc = "Exit insert mode" })
 
@@ -50,4 +55,9 @@ vim.api.nvim_create_user_command("ChangeColorscheme", function()
   print("Changing colorscheme to " .. colorschemes[current_colorscheme])
   vim.cmd("colorscheme " .. colorschemes[current_colorscheme])
 end, { desc = "Change Colorscheme" })
-vim.api.nvim_set_keymap("n", "<leader>uu", ":ChangeColorscheme<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>uu",
+  ":ChangeColorscheme<CR>",
+  { noremap = true, silent = true }
+)
