@@ -64,17 +64,6 @@ return {
   },
 
   {
-    "zbirenbaum/copilot.lua",
-    opts = {
-      filetypes = {
-        gitcommit = true,
-        markdown = true,
-        help = "true",
-      },
-    },
-  },
-
-  {
     "smjonas/inc-rename.nvim",
     cmd = "IncRename",
     config = true,
