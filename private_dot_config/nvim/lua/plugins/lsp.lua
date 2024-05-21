@@ -2,6 +2,10 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      inlay_hints = {
+        enabled = true,
+      },
+      -- codelens = { enabled = true, },
       diagnostics = {
         float = { border = "rounded" },
       },
@@ -39,8 +43,9 @@ return {
         "luacheck",
         "shellcheck",
         "shfmt",
-        "typescript-language-server",
+        -- "typescript-language-server",
         "css-lsp",
+        "chrome-debug-adapter",
       },
       ui = {
         border = "rounded",

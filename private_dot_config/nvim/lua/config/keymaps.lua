@@ -3,8 +3,22 @@
 -- Add any additional keymaps here
 
 local keymap = vim.keymap
+--
+-- Delete LazyVim default bindings which are nuisance for me
+local keymaps_to_delete = {
+  { "n", "<leader>l" },
+  { "n", "<leader>L" },
+  { "n", "<leader>-" },
+  { "n", "<leader>|" },
+  { "n", "<leader>fT" },
+  { "n", "<leader>ft" },
+  { "n", "<leader>cm" },
+}
 
--- keymap("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
+for _, value in pairs(keymaps_to_delete) do
+  keymap.del(value[1], value[2])
+end
+
 keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
 -- copy to system clipboard
@@ -30,7 +44,8 @@ keymap.set("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase W
 
 -- Enter change inner word if the buffer is modifiable, otherwise just press enter
 keymap.set("n", "<CR>", function()
-  local buf_modifiable = vim.api.nvim_buf_get_option(0, "modifiable")
+  local buf_modifiable =
+    vim.api.nvim_get_option_value("modifiable", { buf = vim.api.nvim_get_current_buf() })
   if buf_modifiable then
     return "ciw"
   else
@@ -38,26 +53,11 @@ keymap.set("n", "<CR>", function()
   end
 end, { expr = true })
 
--- Change colorscheme
-local colorschemes = {
-  "catppuccin-frappe",
-  "kanagawa-wave",
-  "tokyonight-moon",
-  "kanagawa-dragon",
-  "catppuccin-latte",
-}
-local current_colorscheme = 1
-vim.api.nvim_create_user_command("ChangeColorscheme", function()
-  current_colorscheme = current_colorscheme + 1
-  if current_colorscheme > #colorschemes then
-    current_colorscheme = 1
-  end
-  print("Changing colorscheme to " .. colorschemes[current_colorscheme])
-  vim.cmd("colorscheme " .. colorschemes[current_colorscheme])
-end, { desc = "Change Colorscheme" })
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>uu",
-  ":ChangeColorscheme<CR>",
-  { noremap = true, silent = true }
-)
+-- Add LazyVim bindings for meta information
+keymap.set("n", "<leader>;m", "<cmd>Mason<CR>", { desc = "Package Manager - [Mason]" })
+keymap.set("n", "<leader>;p", "<cmd>Lazy<CR>", { desc = "Plugin Manager - [LazyVim]" })
+keymap.set("n", "<leader>;e", "<cmd>LazyExtras<CR>", { desc = "Extras Manager - [LazyVim]" })
+keymap.set("n", "<leader>;l", "<cmd>LspInfo<CR>", { desc = "Lsp Info" })
+keymap.set("n", "<leader>;i", "<cmd>ConformInfo<CR>", { desc = "Conform Info" })
+keymap.set("n", "<leader>;c", LazyVim.news.changelog, { desc = "Changelog [LazyVim]" })
+keymap.set("n", "<leader>;M", vim.cmd.messages, { desc = "Display Messages" })

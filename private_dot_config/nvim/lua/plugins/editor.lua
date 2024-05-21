@@ -12,11 +12,13 @@ return {
         mappings = {
           n = {
             ["dd"] = require("telescope.actions").delete_buffer,
-            ["<C-t>"] = require("trouble.providers.telescope").open_with_trouble,
+            -- ["<C-t>"] = require("trouble.providers.telescope").open_with_trouble,
+            ["<C-t>"] = require("trouble.sources.telescope").open,
             ["<C-q>"] = require("telescope.actions").send_to_qflist,
           },
           i = {
-            ["<C-t>"] = require("trouble.providers.telescope").open_with_trouble,
+            -- ["<C-t>"] = require("trouble.providers.telescope").open_with_trouble,
+            ["<C-t>"] = require("trouble.sources.telescope").open,
             ["<C-q>"] = require("telescope.actions").send_to_qflist,
           },
         },
